@@ -1,0 +1,1777 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Mobile — João Zamonelo</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            :root {
+                --brand: #20c997;
+                --brand-light: #e6faf5;
+                --brand-mid: #0bae82;
+                --navy: #0f172a;
+                --text: #1e293b;
+                --muted: #64748b;
+                --border: #e2e8f0;
+                --bg: #f0f7fb;
+                --bg2: #e8f3f9;
+                --card: #ffffff;
+                --red: #ef4444;
+                --orange: #f97316;
+                --blue: #3b82f6;
+                --purple: #8b5cf6;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+                color: var(--text);
+                background: var(--bg);
+                line-height: 1.6;
+            }
+            .app {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            /* Sidebar */
+            aside {
+                width: 230px;
+                min-width: 230px;
+                background: var(--navy);
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                padding: 24px 0;
+            }
+            .sb-logo {
+                padding: 0 20px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            }
+            .sb-logo .nm {
+                font-size: 14px;
+                font-weight: 800;
+                color: #fff;
+            }
+            .sb-logo .sub {
+                font-size: 11px;
+                color: #475569;
+                margin-top: 2px;
+            }
+            .sb-logo .role {
+                font-size: 10px;
+                color: var(--brand);
+                margin-top: 6px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+            }
+            .sb-tag {
+                font-size: 10px;
+                font-weight: 700;
+                color: var(--brand);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                padding: 18px 20px 6px;
+            }
+            aside a {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                padding: 7px 20px;
+                font-size: 13px;
+                color: #94a3b8;
+                text-decoration: none;
+                border-left: 2px solid transparent;
+                transition: all 0.15s;
+            }
+            aside a:hover {
+                color: #e2e8f0;
+                background: rgba(255, 255, 255, 0.04);
+            }
+            aside a.active {
+                color: var(--brand);
+                border-left-color: var(--brand);
+                background: rgba(32, 201, 151, 0.07);
+            }
+            .dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: currentColor;
+                opacity: 0.5;
+                flex-shrink: 0;
+            }
+            aside::-webkit-scrollbar {
+                width: 3px;
+            }
+            aside::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 2px;
+            }
+            .sb-links {
+                padding: 16px 20px 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.07);
+                margin-top: auto;
+                display: flex;
+                gap: 10px;
+            }
+            .sb-link {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                color: #64748b;
+                text-decoration: none;
+                transition: color 0.15s;
+            }
+            .sb-link:hover {
+                color: var(--brand);
+            }
+
+            main {
+                flex: 1;
+                overflow: hidden;
+            }
+
+            /* Hero */
+            .hero {
+                background: linear-gradient(
+                    135deg,
+                    #0a1628 0%,
+                    #0f2240 40%,
+                    #0a1a2e 100%
+                );
+                padding: 64px 56px;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: -100px;
+                right: -60px;
+                width: 420px;
+                height: 420px;
+                background: radial-gradient(
+                    circle,
+                    rgba(32, 201, 151, 0.12) 0%,
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+            .hero-meta {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 28px;
+            }
+            .hero-avatar {
+                width: 52px;
+                height: 52px;
+                border-radius: 50%;
+                border: 2px solid var(--brand);
+                object-fit: cover;
+                flex-shrink: 0;
+            }
+            .hero-author-info .name {
+                font-size: 15px;
+                font-weight: 700;
+                color: #fff;
+            }
+            .hero-author-info .role {
+                font-size: 12px;
+                color: var(--brand);
+                margin-top: 2px;
+            }
+            .hero h1 {
+                font-size: 38px;
+                font-weight: 800;
+                color: #fff;
+                line-height: 1.15;
+                margin-bottom: 20px;
+                letter-spacing: -0.5px;
+            }
+            .hero h1 span {
+                color: var(--brand);
+            }
+            .hero-intro {
+                font-size: 14px;
+                color: #94a3b8;
+                max-width: 560px;
+                line-height: 1.85;
+                margin-bottom: 28px;
+                border-left: 2px solid rgba(32, 201, 151, 0.3);
+                padding-left: 16px;
+            }
+            .hero-stats {
+                display: flex;
+                gap: 28px;
+                margin-bottom: 28px;
+            }
+            .hstat-n {
+                font-size: 26px;
+                font-weight: 800;
+                color: #fff;
+                line-height: 1;
+            }
+            .hstat-l {
+                font-size: 11px;
+                color: #64748b;
+                margin-top: 3px;
+            }
+            .badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 7px;
+            }
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                padding: 4px 11px;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+            .b-teal {
+                background: rgba(32, 201, 151, 0.15);
+                color: var(--brand);
+            }
+            .b-dark {
+                background: rgba(255, 255, 255, 0.07);
+                color: #cbd5e1;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            /* Sections */
+            section {
+                padding: 60px 56px;
+                border-bottom: 1px solid var(--border);
+            }
+            section:nth-child(even) {
+                background: var(--bg2);
+            }
+            section:nth-child(odd) {
+                background: var(--bg);
+            }
+            .slabel {
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: var(--brand);
+                margin-bottom: 6px;
+            }
+            .stitle {
+                font-size: 24px;
+                font-weight: 700;
+                color: var(--text);
+                margin-bottom: 6px;
+                line-height: 1.3;
+            }
+            .ssub {
+                font-size: 14px;
+                color: var(--muted);
+                margin-bottom: 28px;
+                max-width: 500px;
+            }
+            .sgrid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 48px;
+                align-items: start;
+            }
+            .sgrid.rev .svis {
+                order: -1;
+            }
+
+            /* Feature list */
+            .flist {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 11px;
+                margin-bottom: 20px;
+            }
+            .flist li {
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+                font-size: 13px;
+            }
+            .ficon {
+                width: 20px;
+                height: 20px;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+            .ft {
+                background: var(--brand-light);
+                color: var(--brand-mid);
+            }
+            .fr {
+                background: #fef2f2;
+                color: var(--red);
+            }
+            .fo {
+                background: #fff7ed;
+                color: var(--orange);
+            }
+            .fb {
+                background: #eff6ff;
+                color: var(--blue);
+            }
+            .fp {
+                background: #f5f3ff;
+                color: var(--purple);
+            }
+            code {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 11px;
+                background: #e2e8f0;
+                padding: 1px 5px;
+                border-radius: 4px;
+                color: #334155;
+            }
+
+            /* Endpoint pill */
+            .ep {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: var(--navy);
+                border-radius: 6px;
+                padding: 6px 12px;
+                margin-bottom: 7px;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 11px;
+                color: #e2e8f0;
+            }
+            .meth {
+                background: var(--brand);
+                color: #fff;
+                font-size: 9px;
+                font-weight: 700;
+                padding: 2px 6px;
+                border-radius: 3px;
+                letter-spacing: 0.5px;
+            }
+
+            /* Q&A Box — resposta técnica para o recrutador */
+            .qa-box {
+                margin-top: 24px;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid var(--border);
+            }
+            .qa-header {
+                padding: 12px 16px;
+                background: var(--navy);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .qa-header span.label {
+                font-size: 10px;
+                font-weight: 700;
+                color: var(--brand);
+                text-transform: uppercase;
+                letter-spacing: 0.8px;
+            }
+            .qa-header span.question {
+                font-size: 12px;
+                color: #94a3b8;
+                font-style: italic;
+            }
+            .qa-body {
+                padding: 16px;
+                background: rgba(32, 201, 151, 0.04);
+                border-top: 1px solid var(--border);
+            }
+            .qa-body p {
+                font-size: 13px;
+                color: var(--text);
+                line-height: 1.75;
+            }
+            .qa-body strong {
+                color: var(--brand-mid);
+            }
+
+            /* Vídeos */
+            .videos-section {
+                padding: 56px 56px;
+                background: var(--navy);
+            }
+            .videos-section .slabel {
+                color: var(--brand);
+            }
+            .videos-section .stitle {
+                color: #fff;
+                margin-bottom: 6px;
+            }
+            .videos-section .ssub {
+                color: #94a3b8;
+                margin-bottom: 24px;
+            }
+            .videos-row {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
+            }
+            .video-card {
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
+                overflow: hidden;
+                transition: border-color 0.2s;
+            }
+            .video-card:hover {
+                border-color: rgba(32, 201, 151, 0.3);
+            }
+            .video-wrap {
+                position: relative;
+                padding-bottom: 56.25%;
+                height: 0;
+                overflow: hidden;
+            }
+            .video-wrap iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+            .video-info {
+                padding: 10px 12px;
+            }
+            .video-part {
+                font-size: 9px;
+                font-weight: 700;
+                color: var(--brand);
+                text-transform: uppercase;
+                letter-spacing: 0.8px;
+                margin-bottom: 3px;
+            }
+            .video-title {
+                font-size: 11px;
+                font-weight: 600;
+                color: #e2e8f0;
+                line-height: 1.4;
+            }
+            .video-meta {
+                font-size: 10px;
+                color: #475569;
+                margin-top: 3px;
+            }
+            .video-note {
+                margin-top: 14px;
+                padding: 10px 14px;
+                background: rgba(249, 115, 22, 0.08);
+                border: 1px solid rgba(249, 115, 22, 0.2);
+                border-radius: 8px;
+                font-size: 12px;
+                color: #fdba74;
+                display: flex;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            /* Arquitetura */
+            .arch {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                max-width: 480px;
+            }
+            .alayer {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .alabel {
+                font-size: 9px;
+                font-weight: 600;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                width: 54px;
+                flex-shrink: 0;
+                text-align: right;
+            }
+            .abox {
+                flex: 1;
+                border-radius: 8px;
+                padding: 10px 14px;
+                border: 1px solid;
+            }
+            .arow {
+                display: flex;
+                gap: 8px;
+                flex: 1;
+            }
+            .aboxsm {
+                flex: 1;
+                border-radius: 8px;
+                padding: 8px 12px;
+                border: 1px solid;
+            }
+            .abn {
+                font-size: 12px;
+                font-weight: 600;
+                margin-bottom: 2px;
+            }
+            .abs {
+                font-size: 11px;
+                color: var(--muted);
+            }
+            .aarrow {
+                text-align: center;
+                color: var(--muted);
+                font-size: 14px;
+                margin-left: 64px;
+                padding: 2px 0;
+                line-height: 1;
+            }
+
+            /* API table */
+            .atab {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13px;
+            }
+            .atab th {
+                text-align: left;
+                padding: 9px 14px;
+                font-size: 10px;
+                font-weight: 600;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border-bottom: 1px solid var(--border);
+            }
+            .atab td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--border);
+                vertical-align: middle;
+            }
+            .atab tr:last-child td {
+                border-bottom: none;
+            }
+            .atab tr:hover td {
+                background: var(--bg2);
+            }
+            .apath {
+                font-family: "JetBrains Mono", monospace;
+                font-size: 11px;
+            }
+
+            /* Screenshot placeholder */
+            .screenshot-placeholder {
+                background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+                border-radius: 12px;
+                height: 300px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                border: 2px dashed #93c5fd;
+                font-size: 13px;
+                color: #3b82f6;
+                font-weight: 500;
+                text-align: center;
+                padding: 20px;
+            }
+
+            /* Fade in */
+            .fi {
+                opacity: 0;
+                transform: translateY(16px);
+                transition:
+                    opacity 0.5s ease,
+                    transform 0.5s ease;
+            }
+            .fi.v {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            @media (max-width: 860px) {
+                aside {
+                    display: none;
+                }
+                .sgrid,
+                .sgrid.rev {
+                    grid-template-columns: 1fr;
+                }
+                .sgrid.rev .svis {
+                    order: 0;
+                }
+                section,
+                .videos-section {
+                    padding: 40px 20px;
+                }
+                .hero {
+                    padding: 40px 20px;
+                }
+                .videos-row {
+                    grid-template-columns: 1fr 1fr;
+                }
+                .hero-stats {
+                    gap: 16px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <!-- SIDEBAR -->
+            <aside>
+                <div class="sb-logo">
+                    <div class="role">Mobile Developer</div>
+                </div>
+                <div class="sb-tag">Projeto</div>
+                <a href="#sobre" class="active"
+                    ><span class="dot"></span>Visão geral</a
+                >
+                <a href="#lives"><span class="dot"></span>Lives no YouTube</a>
+                <a href="#arquitetura"><span class="dot"></span>Arquitetura</a>
+                <div class="sb-tag">Módulos</div>
+                <a href="#dashboard"><span class="dot"></span>Dashboard</a>
+                <a href="#lotes"><span class="dot"></span>Controle de Lotes</a>
+                <a href="#alertas"
+                    ><span class="dot"></span>Alertas & Pedidos</a
+                >
+                <a href="#romaneio"><span class="dot"></span>Romaneio</a>
+                <a href="#mapa"><span class="dot"></span>Mapa de Depósitos</a>
+                <div class="sb-tag">Referência</div>
+                <a href="#api"><span class="dot"></span>Endpoints API</a>
+                <div class="sb-links">
+                    <a
+                        href="https://www.linkedin.com/in/joaozamonelo/"
+                        target="_blank"
+                        class="sb-link"
+                    >
+                        <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
+                            />
+                            <circle cx="4" cy="4" r="2" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <a
+                        href="https://github.com/jpedrolopesz"
+                        target="_blank"
+                        class="sb-link"
+                    >
+                        <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+                            />
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </aside>
+
+            <main>
+                <!-- HERO -->
+                <div class="hero" id="sobre">
+                    <div class="hero-meta">
+                        <img
+                            src="https://avatars.githubusercontent.com/u/67524586?v=4"
+                            alt="João Zamonelo"
+                            class="hero-avatar"
+                        />
+                        <div class="hero-author-info">
+                            <div class="name">João Zamonelo</div>
+                            <div class="role">Mobile Developer</div>
+                        </div>
+                    </div>
+
+                    <p class="hero-intro">
+                        Tentei implementar algumas funcionalidades de um ERP e
+                        escolhi um segmento que vocês atuam para contextualizar.
+                        As implementações partiram desse segmento. Esta
+                        documentação não é para mostrar um sistema completo — é
+                        só algumas funcionalidades abordadas em 20 horas ao
+                        vivo, para demonstrar como eu lido com criação e
+                        entrega.
+                    </p>
+
+                    <div class="hero-stats">
+                        <div class="hstat">
+                            <div class="hstat-n">20h+</div>
+                            <div class="hstat-l">Ao vivo</div>
+                        </div>
+                        <div class="hstat">
+                            <div class="hstat-n">4</div>
+                            <div class="hstat-l">Lives gravadas</div>
+                        </div>
+                        <div class="hstat">
+                            <div class="hstat-n">6</div>
+                            <div class="hstat-l">Módulos</div>
+                        </div>
+                        <div class="hstat">
+                            <div class="hstat-n">14</div>
+                            <div class="hstat-l">Endpoints REST</div>
+                        </div>
+                    </div>
+
+                    <div class="badges">
+                        <span class="badge b-teal">Mobile</span>
+                        <span class="badge b-dark">Web · REST API</span>
+                        <span class="badge b-dark">MapKit · MKDirections</span>
+                        <span class="badge b-dark">Charts</span>
+                        <span class="badge b-dark"
+                            >async/await · Decodable</span
+                        >
+                    </div>
+                </div>
+
+                <!-- LIVES -->
+                <div class="videos-section" id="lives">
+                    <div class="slabel fi">Processo documentado ao vivo</div>
+                    <div class="stitle fi">4 lives · 20 horas no YouTube</div>
+                    <div class="ssub fi">
+                        Todo o processo de criação gravado publicamente — do
+                        zero à integração com API REST.
+                    </div>
+
+                    <div class="videos-row fi">
+                        <div class="video-card">
+                            <div class="video-wrap">
+                                <iframe
+                                    width="560"
+                                    height="315"
+                                    src="https://www.youtube.com/watch?v=ZKNfe8ursJQ"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="
+                                        accelerometer;
+                                        clipboard-write;
+                                        encrypted-media;
+                                        gyroscope;
+                                        picture-in-picture;
+                                        web-share;
+                                    "
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-part">Parte 1</div>
+                                <div class="video-title">
+                                    Estrutura, modelos, Lotes e Alertas
+                                </div>
+                                <div class="video-meta">Live completa</div>
+                            </div>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-wrap">
+                                <iframe
+                                    src="https://www.youtube.com/watch?v=NpfSxEhQa_4"
+                                    title="Live 2"
+                                    allowfullscreen
+                                    loading="lazy"
+                                ></iframe>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-part">Parte 2</div>
+                                <div class="video-title">
+                                    Romaneio com rota real, Mapa de CDs
+                                </div>
+                                <div class="video-meta">Live completa</div>
+                            </div>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-wrap">
+                                <iframe
+                                    src="https://www.youtube.com/watch?v=27bA21jr1U4"
+                                    title="Live 3"
+                                    allowfullscreen
+                                    loading="lazy"
+                                ></iframe>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-part">Parte 3</div>
+                                <div class="video-title">
+                                    API REST, integração mobile
+                                </div>
+                                <div class="video-meta">Live completa</div>
+                            </div>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-wrap">
+                                <iframe
+                                    src="https://www.youtube.com/watch?v=imXB1T1_Vjg"
+                                    title="Live 4"
+                                    allowfullscreen
+                                    loading="lazy"
+                                ></iframe>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-part">Parte 4</div>
+                                <div class="video-title">
+                                    Dashboard financeiro, Curva ABC, Perfil
+                                </div>
+                                <div class="video-meta">Live completa</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-note fi">
+                        <span>⚠</span>
+                        <span
+                            >A parte 4 teve uma interrupção técnica — a live
+                            caiu e ficou ~4 horas sem gravação. O conteúdo
+                            produzido nesse intervalo não está no vídeo, mas
+                            está no código.</span
+                        >
+                    </div>
+                </div>
+
+                <!-- ARQUITETURA -->
+                <section id="arquitetura">
+                    <div class="slabel">Infraestrutura</div>
+                    <div class="stitle">Arquitetura do Sistema</div>
+                    <div class="ssub">
+                        Três camadas independentes: apresentação mobile, serviço
+                        HTTP e backend com dados fictícios para demonstração.
+                    </div>
+
+                    <div class="sgrid fi">
+                        <div>
+                            <div class="arch">
+                                <div class="alayer">
+                                    <div class="alabel">Mobile</div>
+                                    <div
+                                        class="abox"
+                                        style="
+                                            background: #e6faf5;
+                                            border-color: #a7f3d0;
+                                        "
+                                    >
+                                        <div class="abn" style="color: #065f46">
+                                            iOS · ERP Mobile
+                                        </div>
+                                        <div class="abs">
+                                            Dashboard · Lotes · Alertas ·
+                                            Pedidos · Romaneio · Mapa
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aarrow">
+                                    ↕ HTTP GET · JSON · async/await
+                                </div>
+                                <div class="alayer">
+                                    <div class="alabel">Serviço</div>
+                                    <div
+                                        class="abox"
+                                        style="
+                                            background: #eff6ff;
+                                            border-color: #bfdbfe;
+                                        "
+                                    >
+                                        <div class="abn" style="color: #1e40af">
+                                            APIService · Repositórios ·
+                                            Decodable
+                                        </div>
+                                        <div class="abs">
+                                            URLSession · convertFromSnakeCase ·
+                                            LoadState · APIStateView
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aarrow">↓ Request</div>
+                                <div class="alayer">
+                                    <div class="alabel">Backend</div>
+                                    <div
+                                        class="abox"
+                                        style="
+                                            background: #f5f3ff;
+                                            border-color: #ddd6fe;
+                                        "
+                                    >
+                                        <div class="abn" style="color: #5b21b6">
+                                            PHP · Herd · /api/v1/
+                                        </div>
+                                        <div class="abs">
+                                            14 endpoints GET · Controllers/Api/
+                                            · MockData
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="qa-box" style="margin-top: 28px">
+                                <div class="qa-header">
+                                    <span class="label"
+                                        >Pergunta de recrutamento</span
+                                    >
+                                    <span class="question"
+                                        >— Descreva um projeto que você iniciou
+                                        do zero. Como estruturou a arquitetura
+                                        inicial?</span
+                                    >
+                                </div>
+                                <div class="qa-body">
+                                    <p>
+                                        Este projeto foi iniciado do zero em
+                                        ambiente ao vivo. A decisão arquitetural
+                                        central foi
+                                        <strong
+                                            >separar responsabilidades em
+                                            camadas desde o início</strong
+                                        >: a camada de UI não sabe como os dados
+                                        chegam, só consome um
+                                        <code>LoadState&lt;T&gt;</code>. Isso
+                                        permitiu trocar SwiftData por API REST
+                                        no meio do projeto sem reescrever as
+                                        views. O padrão
+                                        <strong
+                                            >MVVM implícito via SwiftUI</strong
+                                        >
+                                        foi a escolha natural — sem
+                                        over-engineering para um MVP de
+                                        demonstração. O maior desafio técnico
+                                        foi o Map builder do SwiftUI, que quebra
+                                        a reatividade quando se usa dois
+                                        <code>@Query</code> internos — resolvi
+                                        desnormalizando as estatísticas
+                                        diretamente no modelo, inspirado em como
+                                        o projeto agro que eu já tinha resolveu
+                                        o mesmo problema.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="svis">
+                            <div class="screenshot-placeholder">
+                                <span style="font-size: 36px">🏗</span>
+                                <span
+                                    >Adicione screenshot ou vídeo<br />da
+                                    arquitetura aqui</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DASHBOARD -->
+                <section id="dashboard">
+                    <div class="slabel">Módulo 01</div>
+                    <div class="stitle">Dashboard Financeiro</div>
+                    <div class="ssub">
+                        Tela inicial com saldo em tempo real, KPIs, Fluxo de
+                        Caixa com filtro mensal e Curva ABC de produtos.
+                    </div>
+
+                    <div class="sgrid rev fi">
+                        <div class="svis">
+                            <div class="screenshot-placeholder">
+                                <span style="font-size: 36px">📊</span>
+                                <span
+                                    >Adicione screenshot ou vídeo<br />do
+                                    Dashboard aqui</span
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="flist">
+                                <li>
+                                    <div class="ficon ft">$</div>
+                                    <div>
+                                        <strong>Saldo e variação</strong> —
+                                        saldo atual com comparação ao mês
+                                        anterior. Saudação dinâmica por horário
+                                        do dispositivo.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fb">📊</div>
+                                    <div>
+                                        <strong>Fluxo de Caixa</strong> — barras
+                                        de entradas/saídas com linha de saldo.
+                                        Jan/26 aparece vermelho automaticamente
+                                        quando negativo.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon ft">⌕</div>
+                                    <div>
+                                        <strong>Filtro mensal</strong> —
+                                        <code>Menu</code> nativo faz
+                                        <code
+                                            >GET
+                                            /financeiro/fluxo?mes=YYYY-MM</code
+                                        >
+                                        sem recarregar a tela.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fo">A</div>
+                                    <div>
+                                        <strong>Curva ABC</strong> — identifica
+                                        produtos A, B e C para priorização de
+                                        estoque e compras.
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="qa-box">
+                                <div class="qa-header">
+                                    <span class="label"
+                                        >Pergunta de recrutamento</span
+                                    >
+                                    <span class="question"
+                                        >— Como é o seu processo com o time de
+                                        Design? Já sugeriu mudança técnica para
+                                        melhorar UX?</span
+                                    >
+                                </div>
+                                <div class="qa-body">
+                                    <p>
+                                        Neste projeto, eu era o único
+                                        responsável por UI e implementação. A
+                                        decisão mais relevante foi
+                                        <strong
+                                            >usar componentes nativos iOS em vez
+                                            de customizados</strong
+                                        >
+                                        — o filtro mensal usa
+                                        <code>Menu</code> nativo, os gráficos
+                                        usam <code>Swift Charts</code> e o
+                                        pull-to-refresh usa
+                                        <code>.refreshable</code>. Isso garante
+                                        aderência automática às
+                                        <strong
+                                            >Human Interface Guidelines</strong
+                                        >
+                                        da Apple, acessibilidade sem esforço e
+                                        performance superior a soluções
+                                        customizadas. Em times, costumo propor
+                                        essa troca quando o design usa um
+                                        componente custom que o sistema nativo
+                                        já resolve melhor — o impacto em
+                                        acessibilidade e manutenibilidade é
+                                        imediato.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- LOTES -->
+                <section id="lotes">
+                    <div class="slabel">Módulo 02</div>
+                    <div class="stitle">Controle de Lotes</div>
+                    <div class="ssub">
+                        Rastreabilidade completa com número de série, validade,
+                        depósito e status por lote consumido via API.
+                    </div>
+
+                    <div class="sgrid fi">
+                        <div>
+                            <ul class="flist">
+                                <li>
+                                    <div class="ficon ft">✓</div>
+                                    <div>
+                                        <strong>Rastreabilidade</strong> — nº
+                                        lote, nº série, produto, depósito,
+                                        fabricação e validade. Detalhe via
+                                        <code>NavigationLink</code>.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fr">!</div>
+                                    <div>
+                                        <strong>Alertas automáticos</strong> —
+                                        badge numérico na tab bar, ícone ⚠ para
+                                        lotes vencendo em até 30 dias.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fb">≡</div>
+                                    <div>
+                                        <strong>Filtros por status</strong> —
+                                        Disponível, Reservado, Em Trânsito,
+                                        Bloqueado, Vencido via query string na
+                                        API.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon ft">↺</div>
+                                    <div>
+                                        <strong>Pull to refresh</strong> —
+                                        <code>.refreshable</code> nativo
+                                        reconecta à API sem recarregar toda a
+                                        tela.
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="ep">
+                                <span class="meth">GET</span
+                                >/api/v1/lotes?status=
+                            </div>
+                            <br />
+                            <div class="ep">
+                                <span class="meth">GET</span>/api/v1/lotes/{id}
+                            </div>
+
+                            <div class="qa-box">
+                                <div class="qa-header">
+                                    <span class="label"
+                                        >Pergunta de recrutamento</span
+                                    >
+                                    <span class="question"
+                                        >— Como você projeta persistência de
+                                        dados em conexão instável? Quando optar
+                                        por offline-first?</span
+                                    >
+                                </div>
+                                <div class="qa-body">
+                                    <p>
+                                        Neste projeto, a escolha foi
+                                        <strong
+                                            >API-first com dados mock</strong
+                                        >
+                                        para agilizar a demonstração. Em
+                                        produção, minha abordagem é avaliar o
+                                        contexto: para apps de campo com
+                                        conectividade instável (como este ERP em
+                                        depósitos ou fábricas), implementaria
+                                        <strong
+                                            >offline-first com SwiftData ou
+                                            CoreData como cache local</strong
+                                        >, sincronizando no background quando a
+                                        conexão retornar. A resolução de
+                                        conflito seguiria
+                                        <strong
+                                            >last-write-wins com timestamp do
+                                            servidor</strong
+                                        >, exceto para campos críticos como
+                                        status de lote, que exigem um merge
+                                        manual. Já trabalhei com estratégias
+                                        similares em projetos anteriores usando
+                                        <strong>SwiftData + URLSession</strong>,
+                                        garantindo que a UI nunca bloqueie
+                                        aguardando rede.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svis">
+                            <div class="screenshot-placeholder">
+                                <span style="font-size: 36px">📦</span>
+                                <span
+                                    >Adicione screenshot ou vídeo<br />de Lotes
+                                    aqui</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ALERTAS -->
+                <section id="alertas">
+                    <div class="slabel">Módulo 03</div>
+                    <div class="stitle">Alertas & Pedidos de Compra</div>
+                    <div class="ssub">
+                        Dashboard de alertas calculado no backend. Lógica de
+                        negócio no servidor, app apenas consome e exibe.
+                    </div>
+
+                    <div class="sgrid rev fi">
+                        <div class="svis">
+                            <div class="screenshot-placeholder">
+                                <span style="font-size: 36px">🔔</span>
+                                <span
+                                    >Adicione screenshot ou vídeo<br />de
+                                    Alertas aqui</span
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="flist">
+                                <li>
+                                    <div class="ficon fr">🔴</div>
+                                    <div>
+                                        <strong>Lotes vencidos</strong> — seção
+                                        vermelha com quantidade em estoque e
+                                        dias desde o vencimento.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fo">🟠</div>
+                                    <div>
+                                        <strong>Vencendo em 30 dias</strong> —
+                                        ordenado do mais urgente, calculado no
+                                        backend Laravel.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon ft">🟢</div>
+                                    <div>
+                                        <strong>Ponto de pedido</strong> — barra
+                                        visual mostrando estoque atual vs mínimo
+                                        com linha de corte.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fb">✨</div>
+                                    <div>
+                                        <strong>Pedidos automáticos</strong> —
+                                        flag
+                                        <code
+                                            >gerado_automaticamente: true</code
+                                        >
+                                        + ícone ✨ nos pedidos do sistema.
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="ep">
+                                <span class="meth">GET</span>/api/v1/alertas
+                            </div>
+                            <br />
+                            <div class="ep">
+                                <span class="meth">GET</span
+                                >/api/v1/pedidos-compra
+                            </div>
+
+                            <div class="qa-box">
+                                <div class="qa-header">
+                                    <span class="label"
+                                        >Pergunta de recrutamento</span
+                                    >
+                                    <span class="question"
+                                        >— Quais práticas de segurança você
+                                        implementa na comunicação com o
+                                        backend?</span
+                                    >
+                                </div>
+                                <div class="qa-body">
+                                    <p>
+                                        Neste projeto de demonstração o foco foi
+                                        funcionalidade, mas em produção as
+                                        práticas que implementaria são:
+                                        <strong
+                                            >HTTPS obrigatório com SSL
+                                            Pinning</strong
+                                        >
+                                        para prevenir ataques Man-in-the-Middle,
+                                        <strong
+                                            >tokens JWT armazenados no
+                                            Keychain</strong
+                                        >
+                                        (nunca em UserDefaults),
+                                        <strong>OAuth2</strong> para
+                                        autenticação com refresh token
+                                        rotacionado, e
+                                        <strong>sanitização de inputs</strong>
+                                        antes de qualquer query. No backend
+                                        Laravel, ativaria
+                                        <strong>rate limiting</strong> por IP
+                                        nos endpoints sensíveis e
+                                        <strong>CORS restrito</strong> ao
+                                        domínio do app. Para dados sensíveis
+                                        locais, usaria
+                                        <strong
+                                            >criptografia nativa do iOS via
+                                            CryptoKit</strong
+                                        >.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ROMANEIO -->
+                <section id="romaneio">
+                    <div class="slabel">Módulo 04</div>
+                    <div class="stitle">Romaneio de Transferência</div>
+                    <div class="ssub">
+                        Movimentação de lotes entre CDs com rota real por
+                        estrada, distância e tempo estimado via MKDirections.
+                    </div>
+
+                    <div class="sgrid fi">
+                        <div>
+                            <ul class="flist">
+                                <li>
+                                    <div class="ficon fb">🗺</div>
+                                    <div>
+                                        <strong>Rota real por estrada</strong> —
+                                        <code>MKDirections</code> com
+                                        <code>transportType: .automobile</code>.
+                                        <code>MapPolyline</code> sobre mapa
+                                        satélite.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon ft">⏱</div>
+                                    <div>
+                                        <strong>Distância e tempo</strong> — km
+                                        e tempo estimado calculados e exibidos
+                                        no card inferior.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fp">→</div>
+                                    <div>
+                                        <strong>Navegação integrada</strong> —
+                                        abre Apple Maps, Waze ou Google Maps com
+                                        rota direta para o CD destino.
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="ep">
+                                <span class="meth">GET</span
+                                >/api/v1/romaneios/{id}
+                            </div>
+
+                            <div class="qa-box">
+                                <div class="qa-header">
+                                    <span class="label"
+                                        >Pergunta de recrutamento</span
+                                    >
+                                    <span class="question"
+                                        >— Qual o projeto mais complexo do seu
+                                        portfólio? O que você mudaria se
+                                        refizesse hoje?</span
+                                    >
+                                </div>
+                                <div class="qa-body">
+                                    <p>
+                                        Este projeto é o mais recente e o que
+                                        melhor representa como eu penso. A parte
+                                        mais complexa foi o
+                                        <strong>Map builder do SwiftUI</strong>
+                                        — descobri que funções que acessam um
+                                        segundo <code>@Query</code> dentro do
+                                        builder quebram a reatividade
+                                        silenciosamente. A solução foi
+                                        desnormalizar estatísticas no modelo, o
+                                        que funcionou mas acoplou dados ao
+                                        modelo de domínio.
+                                        <strong>Se refizesse hoje</strong>,
+                                        separaria isso em uma camada de
+                                        ViewModel dedicada desde o início.
+                                        Também investiria em
+                                        <strong
+                                            >testes unitários nos
+                                            repositórios</strong
+                                        >
+                                        antes de integrar a UI — a ausência de
+                                        testes foi o maior débito técnico
+                                        consciente, aceito pelo contexto de
+                                        demonstração ao vivo.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svis">
+                            <div class="screenshot-placeholder">
+                                <span style="font-size: 36px">🚛</span>
+                                <span
+                                    >Adicione screenshot ou vídeo<br />do
+                                    Romaneio aqui</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MAPA -->
+                <section id="mapa">
+                    <div class="slabel">Módulo 05</div>
+                    <div class="stitle">Mapa de Depósitos</div>
+                    <div class="ssub">
+                        Visão geográfica de todos os CDs com cor por saúde do
+                        estoque e card de KPIs ao tocar no pin.
+                    </div>
+
+                    <div class="sgrid rev fi">
+                        <div class="svis">
+                            <div class="screenshot-placeholder">
+                                <span style="font-size: 36px">🗺</span>
+                                <span
+                                    >Adicione screenshot ou vídeo<br />do Mapa
+                                    aqui</span
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="flist">
+                                <li>
+                                    <div class="ficon ft">◉</div>
+                                    <div>
+                                        <strong>Círculo proporcional</strong> —
+                                        raio calculado com base no volume de
+                                        estoque atual do CD.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fr">!</div>
+                                    <div>
+                                        <strong>Cor por saúde</strong> — 🔴
+                                        vencidos · 🟠 críticos ≤30d · 🟢 normal.
+                                        Badge de alertas no pin.
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon fb">⊞</div>
+                                    <div>
+                                        <strong>Card ao tocar</strong> —
+                                        estoque, vencidos, críticos e barra de
+                                        ocupação (estoque / capacidade).
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="ficon ft">◑</div>
+                                    <div>
+                                        <strong>Toggle satélite</strong> —
+                                        alterna entre
+                                        <code
+                                            >.hybrid(elevation:
+                                            .realistic)</code
+                                        >
+                                        e <code>.standard</code>.
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="ep">
+                                <span class="meth">GET</span>/api/v1/depositos
+                            </div>
+
+                            <div class="qa-box">
+                                <div class="qa-header">
+                                    <span class="label"
+                                        >Pergunta de recrutamento</span
+                                    >
+                                    <span class="question"
+                                        >— Como você garante que o app continue
+                                        estável se a base de usuários
+                                        dobrar?</span
+                                    >
+                                </div>
+                                <div class="qa-body">
+                                    <p>
+                                        A arquitetura mobile em si é stateless —
+                                        o app não carrega dados entre sessões
+                                        além do que está em tela. O gargalo em
+                                        escala é o backend. Neste projeto, o
+                                        Laravel serve dados mock, mas em
+                                        produção as estratégias seriam:
+                                        <strong
+                                            >paginação nos endpoints de lotes e
+                                            romaneios</strong
+                                        >
+                                        (o app já está preparado — não carrega
+                                        todos os registros de uma vez),
+                                        <strong>cache HTTP com ETag</strong>
+                                        para endpoints que mudam pouco como
+                                        depósitos e produtos, e
+                                        <strong
+                                            >lazy loading de imagens e
+                                            mapas</strong
+                                        >. No lado mobile, usaria
+                                        <strong>Feature Flags</strong> para
+                                        desabilitar módulos pesados remotamente
+                                        em caso de incidente, sem precisar de
+                                        nova release.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- API -->
+                <section id="api">
+                    <div class="slabel">Referência</div>
+                    <div class="stitle">Endpoints da API</div>
+                    <div class="ssub">
+                        Todos somente leitura (GET). Base URL:
+                        <code>http://127.0.0.1:8002/api/v1</code>
+                    </div>
+                    <div class="fi">
+                        <table class="atab">
+                            <thead>
+                                <tr>
+                                    <th>Método</th>
+                                    <th>Endpoint</th>
+                                    <th>Descrição</th>
+                                    <th>Parâmetros</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/dashboard</td>
+                                    <td>
+                                        KPIs, Giro, ABC, mix, CDs, acumulado
+                                    </td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        —
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/financeiro/fluxo</td>
+                                    <td>Fluxo de caixa com filtro mensal</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        ?mes=YYYY-MM
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/financeiro/meses</td>
+                                    <td>Meses disponíveis para o picker</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        —
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/financeiro/acumulado</td>
+                                    <td>Acumulado 6 meses fechados</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        —
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/depositos</td>
+                                    <td>
+                                        Lista CDs com estatísticas e coordenadas
+                                    </td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        —
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/depositos/{id}</td>
+                                    <td>Detalhe do CD + lotes associados</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        id
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/lotes</td>
+                                    <td>Lista lotes com filtros</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        ?status= · ?deposito_id=
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/lotes/{id}</td>
+                                    <td>Rastreabilidade completa de um lote</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        id
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/pedidos-compra</td>
+                                    <td>Lista pedidos (listing leve)</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        ?status=
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/pedidos-compra/{id}</td>
+                                    <td>Detalhe com itens e valores</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        id
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/romaneios</td>
+                                    <td>Lista romaneios (listing leve)</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        ?status=
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/romaneios/{id}</td>
+                                    <td>
+                                        Detalhe com itens e coordenadas de rota
+                                    </td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        id
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/alertas</td>
+                                    <td>
+                                        Vencidos + vencendo + ponto de pedido
+                                    </td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        —
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="meth">GET</span></td>
+                                    <td class="apath">/perfil</td>
+                                    <td>Usuário, empresa e módulos ativos</td>
+                                    <td
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--muted);
+                                        "
+                                    >
+                                        —
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script>
+            const sections = document.querySelectorAll("section[id], div[id]");
+            const links = document.querySelectorAll("aside a");
+            const obs = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            links.forEach((l) => l.classList.remove("active"));
+                            const a = document.querySelector(
+                                `aside a[href="#${e.target.id}"]`,
+                            );
+                            if (a) a.classList.add("active");
+                        }
+                    });
+                },
+                { threshold: 0.2 },
+            );
+            sections.forEach((s) => obs.observe(s));
+            links.forEach((l) => {
+                l.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    document
+                        .querySelector(l.getAttribute("href"))
+                        ?.scrollIntoView({ behavior: "smooth" });
+                });
+            });
+            document.querySelectorAll(".fi").forEach((el, i) => {
+                new IntersectionObserver(
+                    ([e]) => {
+                        if (e.isIntersecting) {
+                            setTimeout(() => el.classList.add("v"), i * 50);
+                        }
+                    },
+                    { threshold: 0.06 },
+                ).observe(el);
+            });
+        </script>
+    </body>
+</html>
