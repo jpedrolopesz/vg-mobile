@@ -602,6 +602,19 @@
                 padding: 20px;
             }
 
+            .hero-content {
+                display: flex;
+                justify-content: space-between;
+
+                align-items: center;
+                gap: 40px;
+            }
+
+            .hero-image img {
+                width: 260px;
+                border-radius: 12px;
+            }
+
             /* Fade in */
             .fi {
                 opacity: 0;
@@ -707,6 +720,11 @@
             <main>
                 <!-- HERO -->
                 <div class="hero" id="sobre">
+
+                    <div class="hero-content">
+
+
+
                     <div class="hero-meta">
                         <img
                             src="https://avatars.githubusercontent.com/u/67524586?v=4"
@@ -718,6 +736,11 @@
                             <div class="role">Mobile Developer</div>
                         </div>
                     </div>
+
+                    <img src="/logo/erp-1.pgn" alt="Imagem" />
+
+
+                </div>
 
                     <p class="hero-intro">
                         Tentei implementar algumas funcionalidades de um ERP e
@@ -748,15 +771,6 @@
                         </div>
                     </div>
 
-                    <div class="badges">
-                        <span class="badge b-teal">Mobile</span>
-                        <span class="badge b-dark">Web · REST API</span>
-                        <span class="badge b-dark">MapKit · MKDirections</span>
-                        <span class="badge b-dark">Charts</span>
-                        <span class="badge b-dark"
-                            >async/await · Decodable</span
-                        >
-                    </div>
                 </div>
 
                 <!-- LIVES -->
@@ -853,7 +867,7 @@
                     <div class="video-note fi">
                         <span>⚠</span>
                         <span
-                            >A parte 4 teve uma interrupção técnica — a live
+                            >A parte 4 teve uma interrupção — a live
                             caiu e ficou ~4 horas sem gravação. O conteúdo
                             produzido nesse intervalo não está no vídeo, mas
                             está no código.</span
@@ -1196,8 +1210,10 @@
                         <div class="svis">
                             <video controls width="800">
                                 <source
-                                    src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/lotes.mp4"
+                                    autoplay muted
+                                    src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/lotes2.mp4"
                                     type="video/mp4"
+                                    preload="metadata"
                                 />
                             </video>
                         </div>
