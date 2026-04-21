@@ -375,7 +375,7 @@
                 letter-spacing: 0.5px;
             }
 
-            /* Q&A Box — resposta técnica para o recrutador */
+            /* Q&A Box */
             .qa-box {
                 margin-top: 24px;
                 border-radius: 12px;
@@ -415,7 +415,7 @@
                 color: var(--brand-mid);
             }
 
-            /* Vídeos */
+            /* ===== VIDEOS SECTION ===== */
             .videos-section {
                 padding: 56px 56px;
                 background: var(--navy);
@@ -441,27 +441,72 @@
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 border-radius: 10px;
                 overflow: hidden;
-                transition: border-color 0.2s;
+                transition:
+                    border-color 0.2s,
+                    transform 0.2s;
+                cursor: pointer;
             }
             .video-card:hover {
-                border-color: rgba(32, 201, 151, 0.3);
+                border-color: rgba(32, 201, 151, 0.5);
+                transform: translateY(-2px);
             }
-            .video-wrap {
+
+            /* Thumbnail with play button */
+            .video-thumb {
                 position: relative;
-                padding-bottom: 56.25%;
-                height: 0;
+                width: 100%;
+                aspect-ratio: 16/9;
                 overflow: hidden;
+                border-bottom: 2px solid rgba(32, 201, 151, 0.4);
             }
-            .video-wrap iframe {
-                position: absolute;
-                top: 0;
-                left: 0;
+            .video-thumb img {
                 width: 100%;
                 height: 100%;
-                border: 0;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease;
             }
+            .video-card:hover .video-thumb img {
+                transform: scale(1.04);
+            }
+            .video-thumb-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(10, 22, 40, 0.45);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s;
+            }
+            .video-card:hover .video-thumb-overlay {
+                background: rgba(10, 22, 40, 0.2);
+            }
+            .play-btn {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: var(--brand);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 0 6px rgba(32, 201, 151, 0.2);
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+            }
+            .video-card:hover .play-btn {
+                transform: scale(1.12);
+                box-shadow: 0 0 0 10px rgba(32, 201, 151, 0.15);
+            }
+            .play-btn svg {
+                width: 20px;
+                height: 20px;
+                fill: #fff;
+                margin-left: 3px;
+            }
+
             .video-info {
-                padding: 10px 12px;
+                padding: 10px 12px 12px;
             }
             .video-part {
                 font-size: 9px;
@@ -469,19 +514,48 @@
                 color: var(--brand);
                 text-transform: uppercase;
                 letter-spacing: 0.8px;
-                margin-bottom: 3px;
+                margin-bottom: 4px;
             }
             .video-title {
                 font-size: 11px;
                 font-weight: 600;
                 color: #e2e8f0;
                 line-height: 1.4;
+                margin-bottom: 6px;
             }
             .video-meta {
                 font-size: 10px;
                 color: #475569;
                 margin-top: 3px;
             }
+
+            /* Time badge */
+            .time-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                background: rgba(32, 201, 151, 0.12);
+                border: 1px solid rgba(32, 201, 151, 0.3);
+                color: var(--brand);
+                font-family: "JetBrains Mono", monospace;
+                font-size: 12px;
+                font-weight: 600;
+                padding: 4px 10px;
+                border-radius: 6px;
+                margin-top: 6px;
+                letter-spacing: 0.5px;
+            }
+            .time-badge svg {
+                width: 11px;
+                height: 11px;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                flex-shrink: 0;
+            }
+
             .video-note {
                 margin-top: 14px;
                 padding: 10px 14px;
@@ -493,6 +567,220 @@
                 display: flex;
                 gap: 8px;
                 align-items: flex-start;
+            }
+
+            /* ===== MODAL ===== */
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(5, 10, 20, 0.92);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease;
+                backdrop-filter: blur(6px);
+            }
+            .modal-overlay.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+            .modal-inner {
+                position: relative;
+                width: 90vw;
+                max-width: 900px;
+                transform: scale(0.95) translateY(16px);
+                transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            .modal-overlay.open .modal-inner {
+                transform: scale(1) translateY(0);
+            }
+            .modal-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 12px;
+            }
+            .modal-title {
+                font-size: 14px;
+                font-weight: 700;
+                color: #e2e8f0;
+            }
+            .modal-close {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: #94a3b8;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+                line-height: 1;
+            }
+            .modal-close:hover {
+                background: rgba(239, 68, 68, 0.2);
+                color: #f87171;
+                border-color: rgba(239, 68, 68, 0.3);
+            }
+            .modal-video-wrap {
+                position: relative;
+                padding-bottom: 56.25%;
+                height: 0;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 2px solid rgba(32, 201, 151, 0.3);
+                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+            }
+            .modal-video-wrap iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+
+            /* ===== MODULE PREVIEW CARD ===== */
+            .mod-preview {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                border-radius: 14px;
+                overflow: hidden;
+                border: 1.5px solid var(--border);
+                box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+                background: #fff;
+                transition:
+                    box-shadow 0.2s,
+                    border-color 0.2s;
+            }
+            .mod-preview:hover {
+                box-shadow: 0 8px 32px rgba(15, 23, 42, 0.13);
+                border-color: rgba(32, 201, 151, 0.4);
+            }
+            .mod-preview-thumb {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 16/10;
+                overflow: hidden;
+                cursor: pointer;
+                background: #0f172a;
+            }
+            .mod-preview-thumb img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.35s ease;
+            }
+            .mod-preview:hover .mod-preview-thumb img {
+                transform: scale(1.04);
+            }
+            .mod-preview-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to top,
+                    rgba(10, 22, 40, 0.55) 0%,
+                    rgba(10, 22, 40, 0.1) 50%,
+                    transparent 100%
+                );
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s;
+            }
+            .mod-preview:hover .mod-preview-overlay {
+                background: linear-gradient(
+                    to top,
+                    rgba(10, 22, 40, 0.35) 0%,
+                    rgba(10, 22, 40, 0.05) 50%,
+                    transparent 100%
+                );
+            }
+            .mod-play-btn {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                background: var(--brand);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 0 8px rgba(32, 201, 151, 0.18);
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+            }
+            .mod-preview:hover .mod-play-btn {
+                transform: scale(1.13);
+                box-shadow: 0 0 0 14px rgba(32, 201, 151, 0.12);
+            }
+            .mod-play-btn svg {
+                width: 22px;
+                height: 22px;
+                fill: #fff;
+                margin-left: 4px;
+            }
+            .mod-preview-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 14px;
+                background: #fff;
+                border-top: 1px solid var(--border);
+                cursor: pointer;
+            }
+            .mod-preview-label {
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--muted);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .mod-preview-label svg {
+                width: 13px;
+                height: 13px;
+                fill: none;
+                stroke: var(--brand);
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+            .mod-preview-cta {
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--brand);
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                letter-spacing: 0.3px;
+            }
+            .mod-preview-cta svg {
+                width: 12px;
+                height: 12px;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 2.5;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            /* Modal video for mp4 */
+            .modal-video-mp4 {
+                width: 100%;
+                border-radius: 10px;
+                display: block;
+                max-height: 80vh;
+                background: #000;
             }
 
             /* Arquitetura */
@@ -605,7 +893,6 @@
             .hero-content {
                 display: flex;
                 justify-content: space-between;
-
                 align-items: center;
                 gap: 40px;
             }
@@ -720,26 +1007,24 @@
             <main>
                 <!-- HERO -->
                 <div class="hero" id="sobre">
-
                     <div class="hero-content">
-
-
-
-                    <div class="hero-meta">
-                        <img
-                            src="https://avatars.githubusercontent.com/u/67524586?v=4"
-                            alt="João Zamonelo"
-                            class="hero-avatar"
-                        />
-                        <div class="hero-author-info">
-                            <div class="name">João Zamonelo</div>
-                            <div class="role">Mobile Developer</div>
+                        <div class="hero-meta">
+                            <img
+                                src="https://avatars.githubusercontent.com/u/67524586?v=4"
+                                alt="João Zamonelo"
+                                class="hero-avatar"
+                            />
+                            <div class="hero-author-info">
+                                <div class="name">João Zamonelo</div>
+                                <div class="role">Mobile Developer</div>
+                            </div>
                         </div>
+                        <img
+                            src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/logo/erp-1.png"
+                            width="200"
+                            alt="Imagem"
+                        />
                     </div>
-
-                    <img src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/logo/erp-1.png" width="200" alt="Imagem" />
-
-                </div>
 
                     <p class="hero-intro">
                         Tentei implementar algumas funcionalidades de um ERP e
@@ -769,7 +1054,6 @@
                             <div class="hstat-l">Endpoints REST</div>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- LIVES -->
@@ -782,83 +1066,163 @@
                     </div>
 
                     <div class="videos-row fi">
-                        <div class="video-card">
-                            <div class="video-wrap">
-                                <iframe
-                                    width="560"
-                                    height="315"
-                                    src="https://www.youtube.com/watch?v=ZKNfe8ursJQ"
-                                    title="YouTube video player"
-                                    frameborder="0"
-                                    allow="
-                                        accelerometer;
-                                        clipboard-write;
-                                        encrypted-media;
-                                        gyroscope;
-                                        picture-in-picture;
-                                        web-share;
-                                    "
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen
-                                ></iframe>
+                        <!-- Parte 1 -->
+                        <div
+                            class="video-card"
+                            onclick="
+                                openModal(
+                                    'https://www.youtube.com/embed/ZKNfe8ursJQ',
+                                    'Parte 1 — Estrutura, modelos, Lotes e Alertas',
+                                )
+                            "
+                        >
+                            <div class="video-thumb">
+                                <img
+                                    src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/miniatura-youtube/lotes-miniatura.png"
+                                    alt="Miniatura Parte 1"
+                                    loading="lazy"
+                                />
+                                <div class="video-thumb-overlay">
+                                    <div class="play-btn">
+                                        <svg viewBox="0 0 24 24">
+                                            <polygon points="5,3 19,12 5,21" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                             <div class="video-info">
-                                <div class="video-part">Parte 1 - Tempo: [08:35:30]</div>
+                                <div class="video-part">Parte 1</div>
                                 <div class="video-title">
                                     Estrutura, modelos, Lotes e Alertas
                                 </div>
-                                <div class="video-meta">Live completa </div>
+                                <div class="video-meta">Live completa</div>
+                                <div class="time-badge">
+                                    <svg viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    08:35:30
+                                </div>
                             </div>
                         </div>
-                        <div class="video-card">
-                            <div class="video-wrap">
-                                <iframe
-                                    src="https://www.youtube.com/watch?v=NpfSxEhQa_4"
-                                    title="Live 2"
-                                    allowfullscreen
+
+                        <!-- Parte 2 -->
+                        <div
+                            class="video-card"
+                            onclick="
+                                openModal(
+                                    'https://www.youtube.com/embed/NpfSxEhQa_4?autoplay=1',
+                                    'Parte 2 — Romaneio com rota real, Mapa de CDs',
+                                )
+                            "
+                        >
+                            <div class="video-thumb">
+                                <img
+                                    src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/miniatura-youtube/romaneio-miniatura.png"
+                                    alt="Miniatura Parte 2"
                                     loading="lazy"
-                                ></iframe>
+                                />
+                                <div class="video-thumb-overlay">
+                                    <div class="play-btn">
+                                        <svg viewBox="0 0 24 24">
+                                            <polygon points="5,3 19,12 5,21" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                             <div class="video-info">
-                                <div class="video-part">Parte 2 - Tempo: [03:01:39] </div>
+                                <div class="video-part">Parte 2</div>
                                 <div class="video-title">
                                     Romaneio com rota real, Mapa de CDs
                                 </div>
-                                <div class="video-meta">Live completa </div>
+                                <div class="video-meta">Live completa</div>
+                                <div class="time-badge">
+                                    <svg viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    03:01:39
+                                </div>
                             </div>
                         </div>
-                        <div class="video-card">
-                            <div class="video-wrap">
-                                <iframe
-                                    src="https://www.youtube.com/watch?v=27bA21jr1U4"
-                                    title="Live 3"
-                                    allowfullscreen
+
+                        <!-- Parte 3 -->
+                        <div
+                            class="video-card"
+                            onclick="
+                                openModal(
+                                    'https://www.youtube.com/embed/27bA21jr1U4?autoplay=1',
+                                    'Parte 3 — API REST, integração mobile',
+                                )
+                            "
+                        >
+                            <div class="video-thumb">
+                                <img
+                                    src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/miniatura-youtube/apirest-miniatura.png"
+                                    alt="Miniatura Parte 3"
                                     loading="lazy"
-                                ></iframe>
+                                />
+                                <div class="video-thumb-overlay">
+                                    <div class="play-btn">
+                                        <svg viewBox="0 0 24 24">
+                                            <polygon points="5,3 19,12 5,21" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                             <div class="video-info">
-                                <div class="video-part">Parte 3 - Tempo: [01:40:10]</div>
+                                <div class="video-part">Parte 3</div>
                                 <div class="video-title">
                                     API REST, integração mobile
                                 </div>
                                 <div class="video-meta">Live completa</div>
+                                <div class="time-badge">
+                                    <svg viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    01:40:10
+                                </div>
                             </div>
                         </div>
-                        <div class="video-card">
-                            <div class="video-wrap">
-                                <iframe
-                                    src="https://www.youtube.com/watch?v=imXB1T1_Vjg"
-                                    title="Live 4"
-                                    allowfullscreen
+
+                        <!-- Parte 4 -->
+                        <div
+                            class="video-card"
+                            onclick="
+                                openModal(
+                                    'https://www.youtube.com/embed/imXB1T1_Vjg?autoplay=1',
+                                    'Parte 4 — Dashboard financeiro, Curva ABC, Perfil',
+                                )
+                            "
+                        >
+                            <div class="video-thumb">
+                                <img
+                                    src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/miniatura-youtube/dashboard-miniatura.png"
+                                    alt="Miniatura Parte 4"
                                     loading="lazy"
-                                ></iframe>
+                                />
+                                <div class="video-thumb-overlay">
+                                    <div class="play-btn">
+                                        <svg viewBox="0 0 24 24">
+                                            <polygon points="5,3 19,12 5,21" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                             <div class="video-info">
-                                <div class="video-part">Parte 4 - Tempo: [04:19:26]</div>
+                                <div class="video-part">Parte 4</div>
                                 <div class="video-title">
                                     Dashboard financeiro, Curva ABC, Perfil
                                 </div>
-                                <div class="video-meta">Live completa </div>
+                                <div class="video-meta">Live completa</div>
+                                <div class="time-badge">
+                                    <svg viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    04:19:26
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -866,10 +1230,10 @@
                     <div class="video-note fi">
                         <span>⚠</span>
                         <span
-                            >A parte 4 teve uma interrupção — a live
-                            caiu e ficou ~4 horas sem gravação. O conteúdo
-                            produzido nesse intervalo não está no vídeo, mas
-                            está no código.</span
+                            >A parte 4 teve uma interrupção — a live caiu e
+                            ficou ~4 horas sem gravação. O conteúdo produzido
+                            nesse intervalo não está no vídeo, mas está no
+                            código.</span
                         >
                     </div>
                 </div>
@@ -885,68 +1249,6 @@
 
                     <div class="sgrid fi">
                         <div>
-                            <div class="arch">
-                                <div class="alayer">
-                                    <div class="alabel">Mobile</div>
-                                    <div
-                                        class="abox"
-                                        style="
-                                            background: #e6faf5;
-                                            border-color: #a7f3d0;
-                                        "
-                                    >
-                                        <div class="abn" style="color: #065f46">
-                                            iOS · ERP Mobile
-                                        </div>
-                                        <div class="abs">
-                                            Dashboard · Lotes · Alertas ·
-                                            Pedidos · Romaneio · Mapa
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="aarrow">
-                                    ↕ HTTP GET · JSON · async/await
-                                </div>
-                                <div class="alayer">
-                                    <div class="alabel">Serviço</div>
-                                    <div
-                                        class="abox"
-                                        style="
-                                            background: #eff6ff;
-                                            border-color: #bfdbfe;
-                                        "
-                                    >
-                                        <div class="abn" style="color: #1e40af">
-                                            APIService · Repositórios ·
-                                            Decodable
-                                        </div>
-                                        <div class="abs">
-                                            URLSession · convertFromSnakeCase ·
-                                            LoadState · APIStateView
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="aarrow">↓ Request</div>
-                                <div class="alayer">
-                                    <div class="alabel">Backend</div>
-                                    <div
-                                        class="abox"
-                                        style="
-                                            background: #f5f3ff;
-                                            border-color: #ddd6fe;
-                                        "
-                                    >
-                                        <div class="abn" style="color: #5b21b6">
-                                            PHP · Herd · /api/v1/
-                                        </div>
-                                        <div class="abs">
-                                            14 endpoints GET · Controllers/Api/
-                                            · MockData
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="qa-box" style="margin-top: 28px">
                                 <div class="qa-header">
                                     <span class="label"
@@ -989,15 +1291,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="svis">
-                            <div class="screenshot-placeholder">
-                                <span style="font-size: 36px">🏗</span>
-                                <span
-                                    >Adicione screenshot ou vídeo<br />da
-                                    arquitetura aqui</span
-                                >
-                            </div>
+                            <img
+                                src="imagens/erp_arquitetura_sistema.svg"
+                                alt="Arquitetura do sistema ERP"
+                            />
                         </div>
                     </div>
                 </section>
@@ -1013,12 +1311,48 @@
 
                     <div class="sgrid rev fi">
                         <div class="svis">
-                            <div class="screenshot-placeholder">
-                                <span style="font-size: 36px">📊</span>
-                                <span
-                                    >Adicione screenshot ou vídeo<br />do
-                                    Dashboard aqui</span
-                                >
+                            <div
+                                class="mod-preview"
+                                onclick="
+                                    openModal(
+                                        'https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/dashboard.mp4',
+                                        'Dashboard Financeiro — Preview',
+                                    )
+                                "
+                            >
+                                <div class="mod-preview-thumb">
+                                    <img
+                                        src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/imagens/dashbaord-image.png"
+                                        alt="Dashboard preview"
+                                        loading="lazy"
+                                    />
+                                    <div class="mod-preview-overlay">
+                                        <div class="mod-play-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <polygon
+                                                    points="5,3 19,12 5,21"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mod-preview-footer">
+                                    <div class="mod-preview-label">
+                                        <svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline
+                                                points="12 6 12 12 16 14"
+                                            />
+                                        </svg>
+                                        Preview do módulo
+                                    </div>
+                                    <div class="mod-preview-cta">
+                                        Ver demo
+                                        <svg viewBox="0 0 24 24">
+                                            <polyline points="9 18 15 12 9 6" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -1207,14 +1541,49 @@
                             </div>
                         </div>
                         <div class="svis">
-                            <video controls width="800">
-                                <source
-                                    autoplay muted
-                                    src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/lotes.mp4"
-                                    type="video/mp4"
-                                    preload="metadata"
-                                />
-                            </video>
+                            <div
+                                class="mod-preview"
+                                onclick="
+                                    openModal(
+                                        'https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/lotes.mp4',
+                                        'Controle de Lotes — Preview',
+                                    )
+                                "
+                            >
+                                <div class="mod-preview-thumb">
+                                    <img
+                                        src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/imagens/lotes-image.png"
+                                        alt="Lotes preview"
+                                        loading="lazy"
+                                    />
+                                    <div class="mod-preview-overlay">
+                                        <div class="mod-play-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <polygon
+                                                    points="5,3 19,12 5,21"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mod-preview-footer">
+                                    <div class="mod-preview-label">
+                                        <svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline
+                                                points="12 6 12 12 16 14"
+                                            />
+                                        </svg>
+                                        Preview do módulo
+                                    </div>
+                                    <div class="mod-preview-cta">
+                                        Ver demo
+                                        <svg viewBox="0 0 24 24">
+                                            <polyline points="9 18 15 12 9 6" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -1230,13 +1599,49 @@
 
                     <div class="sgrid rev fi">
                         <div class="svis">
-                                <video controls width="800">
-                                    <source
-                                        src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/alertas.mp4"
-                                        type="video/mp4"
+                            <div
+                                class="mod-preview"
+                                onclick="
+                                    openModal(
+                                        'https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/alertas.mp4',
+                                        'Alertas & Pedidos de Compra — Preview',
+                                    )
+                                "
+                            >
+                                <div class="mod-preview-thumb">
+                                    <img
+                                        src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/imagens/alertar-image.png"
+                                        alt="Alertas preview"
+                                        loading="lazy"
                                     />
-                                </video>
-                            </>
+                                    <div class="mod-preview-overlay">
+                                        <div class="mod-play-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <polygon
+                                                    points="5,3 19,12 5,21"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mod-preview-footer">
+                                    <div class="mod-preview-label">
+                                        <svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline
+                                                points="12 6 12 12 16 14"
+                                            />
+                                        </svg>
+                                        Preview do módulo
+                                    </div>
+                                    <div class="mod-preview-cta">
+                                        Ver demo
+                                        <svg viewBox="0 0 24 24">
+                                            <polyline points="9 18 15 12 9 6" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <ul class="flist">
@@ -1418,12 +1823,48 @@
                             </div>
                         </div>
                         <div class="svis">
-                            <div class="screenshot-placeholder">
-                                <span style="font-size: 36px">🚛</span>
-                                <span
-                                    >Adicione screenshot ou vídeo<br />do
-                                    Romaneio aqui</span
-                                >
+                            <div
+                                class="mod-preview"
+                                onclick="
+                                    openModal(
+                                        'https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/romaneio.mp4',
+                                        'Romaneio de Transferência — Preview',
+                                    )
+                                "
+                            >
+                                <div class="mod-preview-thumb">
+                                    <img
+                                        src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/imagens/romaneio-image.png"
+                                        alt="Romaneio preview"
+                                        loading="lazy"
+                                    />
+                                    <div class="mod-preview-overlay">
+                                        <div class="mod-play-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <polygon
+                                                    points="5,3 19,12 5,21"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mod-preview-footer">
+                                    <div class="mod-preview-label">
+                                        <svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline
+                                                points="12 6 12 12 16 14"
+                                            />
+                                        </svg>
+                                        Preview do módulo
+                                    </div>
+                                    <div class="mod-preview-cta">
+                                        Ver demo
+                                        <svg viewBox="0 0 24 24">
+                                            <polyline points="9 18 15 12 9 6" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1440,12 +1881,48 @@
 
                     <div class="sgrid rev fi">
                         <div class="svis">
-                            <div class="screenshot-placeholder">
-                                <span style="font-size: 36px">🗺</span>
-                                <span
-                                    >Adicione screenshot ou vídeo<br />do Mapa
-                                    aqui</span
-                                >
+                            <div
+                                class="mod-preview"
+                                onclick="
+                                    openModal(
+                                        'https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/videos/maps.mp4',
+                                        'Mapa de Depósitos — Preview',
+                                    )
+                                "
+                            >
+                                <div class="mod-preview-thumb">
+                                    <img
+                                        src="https://raw.githubusercontent.com/jpedrolopesz/vg-mobile/main/imagens/mapa-image.png"
+                                        alt="Mapa preview"
+                                        loading="lazy"
+                                    />
+                                    <div class="mod-preview-overlay">
+                                        <div class="mod-play-btn">
+                                            <svg viewBox="0 0 24 24">
+                                                <polygon
+                                                    points="5,3 19,12 5,21"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mod-preview-footer">
+                                    <div class="mod-preview-label">
+                                        <svg viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline
+                                                points="12 6 12 12 16 14"
+                                            />
+                                        </svg>
+                                        Preview do módulo
+                                    </div>
+                                    <div class="mod-preview-cta">
+                                        Ver demo
+                                        <svg viewBox="0 0 24 24">
+                                            <polyline points="9 18 15 12 9 6" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -1750,7 +2227,102 @@
             </main>
         </div>
 
+        <!-- VIDEO MODAL -->
+        <div
+            class="modal-overlay"
+            id="videoModal"
+            onclick="handleOverlayClick(event)"
+        >
+            <div class="modal-inner">
+                <div class="modal-header">
+                    <div class="modal-title" id="modalTitle"></div>
+                    <div class="modal-close" onclick="closeModal()">✕</div>
+                </div>
+                <!-- YouTube embed -->
+                <div class="modal-video-wrap" id="modalYoutubeWrap">
+                    <iframe
+                        id="modalIframe"
+                        src=""
+                        title="YouTube video"
+                        allow="
+                            accelerometer;
+                            autoplay;
+                            clipboard-write;
+                            encrypted-media;
+                            gyroscope;
+                            picture-in-picture;
+                            web-share;
+                        "
+                        allowfullscreen
+                    ></iframe>
+                </div>
+                <!-- MP4 video -->
+                <div
+                    id="modalMp4Wrap"
+                    style="
+                        display: none;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        border: 2px solid rgba(32, 201, 151, 0.3);
+                        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+                    "
+                >
+                    <video
+                        id="modalVideo"
+                        class="modal-video-mp4"
+                        controls
+                        playsinline
+                        src=""
+                    ></video>
+                </div>
+            </div>
+        </div>
+
         <script>
+            // Modal
+            function openModal(src, title) {
+                document.getElementById("modalTitle").textContent = title;
+                document.getElementById("videoModal").classList.add("open");
+                document.body.style.overflow = "hidden";
+
+                const isYoutube =
+                    src.includes("youtube.com") || src.includes("youtu.be");
+                const youtubeWrap = document.getElementById("modalYoutubeWrap");
+                const mp4Wrap = document.getElementById("modalMp4Wrap");
+
+                if (isYoutube) {
+                    youtubeWrap.style.display = "";
+                    mp4Wrap.style.display = "none";
+                    document.getElementById("modalIframe").src = src;
+                } else {
+                    youtubeWrap.style.display = "none";
+                    mp4Wrap.style.display = "";
+                    const vid = document.getElementById("modalVideo");
+                    vid.src = src;
+                    vid.play();
+                }
+            }
+
+            function closeModal() {
+                document.getElementById("videoModal").classList.remove("open");
+                document.getElementById("modalIframe").src = "";
+                const vid = document.getElementById("modalVideo");
+                vid.pause();
+                vid.src = "";
+                document.body.style.overflow = "";
+            }
+
+            function handleOverlayClick(e) {
+                if (e.target === document.getElementById("videoModal")) {
+                    closeModal();
+                }
+            }
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") closeModal();
+            });
+
+            // Sidebar scroll spy
             const sections = document.querySelectorAll("section[id], div[id]");
             const links = document.querySelectorAll("aside a");
             const obs = new IntersectionObserver(
@@ -1776,6 +2348,8 @@
                         ?.scrollIntoView({ behavior: "smooth" });
                 });
             });
+
+            // Fade in
             document.querySelectorAll(".fi").forEach((el, i) => {
                 new IntersectionObserver(
                     ([e]) => {
